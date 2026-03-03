@@ -1,0 +1,9 @@
+<div>
+    <!--Event listener to the button ctrl + space to show list-->
+    <button (click)="onSelectUser()">
+        <!--Property binding a a geeter on the imagePATH-->
+        <img [src]="imagePath"  [alt]="name"/>
+        <!--Interpolation to show the name of the user -->
+        <span>{{ name }}</span>
+    </button>
+</div>
