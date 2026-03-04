@@ -1,4 +1,6 @@
 import { Component, Input, input, computed, Output, output, EventEmitter } from '@angular/core';
+import { type User } from "./user.model";
+
 // computed, signal are used to create reactive state management in Angular.
 //import { DUMMY_USERS } from '../dummy-users';
 
@@ -13,11 +15,11 @@ import { Component, Input, input, computed, Output, output, EventEmitter } from 
 // }
 
 // Define a User interface to represent the structure of user data
-interface User {
-  id: string;
-  name: string;
-  avatar: string;
-}
+// interface User {
+//   id: string;
+//   name: string;
+//   avatar: string;
+// }
 
 
 @Component({
@@ -52,6 +54,8 @@ export class UserComponent {
   //@Input({required : true}) id!: string;
 
   @Input({required: true}) user!: User;
+
+  @Input({required: true}) selected!: boolean;
 
   // Output event emitter to notify the parent component when a user is selected
   @Output() select = new EventEmitter<string>();
