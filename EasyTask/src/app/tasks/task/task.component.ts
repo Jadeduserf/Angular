@@ -1,5 +1,8 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { type Task } from "./task.model";
+import { CardComponent } from "../../shared/card/card.component";
+import { TasksService } from '../tasks.service';
 
 // interface Task {
 //   id: string;
@@ -12,7 +15,7 @@ import { type Task } from "./task.model";
 @Component({
   selector: 'app-task',
   standalone: true,
-  imports: [],
+  imports: [CardComponent, DatePipe],
   templateUrl: './task.component.html',
   styleUrl: './task.component.css'
 })
@@ -20,11 +23,12 @@ export class TaskComponent {
   // Input property to receive the task data from the parent component
   @Input({required: true}) task!: Task;
 
-  // Output event emitter to notify the parent component when a task is completed
-  @Output() complete = new EventEmitter<string>();
+
+
+  private taskService = inject(TasksService);
 
   onComleteTask() {
-    this.complete.emit(this.task.id);
+    this.taskService.removeTask(this.task.id);
   }
 
 }

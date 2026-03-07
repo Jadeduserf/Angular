@@ -1,10 +1,13 @@
 import { Component, Input } from '@angular/core';
 import { TaskComponent } from "./task/task.component";
+import { NewTaskComponent } from './new-task/new-task.component';
+import { type NewTaskData } from './task/task.model';
+import { TasksService } from './tasks.service';
 
 @Component({
   selector: 'app-tasks',
   standalone: true,
-  imports: [TaskComponent],
+  imports: [TaskComponent, NewTaskComponent],
   templateUrl: './tasks.component.html',
   styleUrl: './tasks.component.css'
 })
@@ -16,39 +19,27 @@ export class TasksComponent {
   // Input property to receive the id of the user from the parent component
   @Input({required: true}) userId!: string;
 
-  tasks = [
-    {
-    id: 't1',
-    userId: 'u1',
-    title: 'Master Angular',
-    summary:
-      'Learn all the basic and advanced features of Angular & how to apply them.',
-    dueDate: '2026-12-31',
-  },
-  {
-    id: 't2',
-    userId: 'u3',
-    title: 'Build first prototype',
-    summary: 'Build a first prototype of the online shop website',
-    dueDate: '2027-05-31',
-  },
-  {
-    id: 't3',
-    userId: 'u3',
-    title: 'Prepare issue template',
-    summary:
-      'Prepare and describe an issue template which will help with project management',
-    dueDate: '2027-06-15',
-  },
-  ];
+  // Property to track whether the user is currently adding a new task. It is initialized to false, indicating that the user is not in the process of adding a new task.
+  isAddingTask = false;
+
+  constructor(private tasksService: TasksService) {}
+
 
   // Getter to filter tasks based on the userId and return only the tasks that belong to the selected user
   get selectedUserTasks() {
-    return this.tasks.filter(task => task.userId === this.userId);
+    return this.tasksService.getUserTasks(this.userId);
   }
 
-  onCompleteTask(id: string) {
-    console.log('Task completed:', id);
-    this.tasks = this.tasks.filter(task => task.id !== id);
+
+  // Method to handle the start of adding a new task. It logs a message to the console indicating that the process of adding a new task has started for the user with the specified userId.
+  onStartAddTask() {
+    console.log('Start adding a new task for user:', this.userId);
+    this.isAddingTask = true;
+  }
+
+  // Method to handle the cancellation of adding a new task. It logs a message to the console indicating that the process of adding a new task has been canceled for the user with the specified userId, and sets the isAddingTask property back to false.
+  onCloseAddTask() {
+    console.log('Cancel adding a new task for user:', this.userId);
+    this.isAddingTask = false;
   }
 }
