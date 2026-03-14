@@ -23,8 +23,7 @@ export class TaskComponent {
   // Input property to receive the task data from the parent component
   @Input({required: true}) task!: Task;
 
-
-
+  // Injecting the TasksService to manage tasks. This allows the component to interact with the service to perform operations related to tasks, such as marking a task as complete or removing it from the list.
   private taskService = inject(TasksService);
 
   onComleteTask() {
