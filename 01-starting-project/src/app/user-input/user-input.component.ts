@@ -4,8 +4,6 @@ import { InvestmentService } from '../investment.service';
 
 @Component({
   selector: 'app-user-input',
-  standalone: true,
-  imports: [FormsModule],
   templateUrl: './user-input.component.html',
   styleUrl: './user-input.component.css'
 })
@@ -29,7 +27,7 @@ export class UserInputComponent {
       expectedReturn: +this.enteredExpectedReturn(),
       duration: +this.enteredDuration()
       });
-      
+
     this.enteredInitialInvestment.set('0');
     this.enteredAnnualInvestment.set('0');
     this.enteredExpectedReturn.set('5');
