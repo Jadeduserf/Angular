@@ -1,4 +1,4 @@
-import { Component, HostBinding, HostListener, Input, input, ViewEncapsulation } from '@angular/core';
+import { Component, HostBinding, HostListener, inject, Input, input, ViewEncapsulation, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-control',
@@ -22,7 +22,11 @@ export class ControlComponent {
 
   label = input.required<string>();
 
+  // Using inject to get ElementRef instead of constructor injection to demonstrate the new inject function in Angular 16
+  private el = inject(ElementRef);
+
   onClick() {
     console.log('Control clicked!');
+    console.log('Element:', this.el.nativeElement);
   }
 }
